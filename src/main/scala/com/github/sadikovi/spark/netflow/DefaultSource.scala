@@ -242,8 +242,8 @@ class DefaultSource extends FileFormat with DataSourceRegister {
 
         // Ensure that the reader is closed even if the task fails or doesn't consume the entire
         // iterator of records.
-        Option(TaskContext.get()).foreach { taskContext =>
-          taskContext.addTaskCompletionListener { _ =>
+        Option(TaskContext.get()).foreach { taskContext:TaskContext =>
+          taskContext.addTaskCompletionListener[Unit] { _ =>
             rawIterator.closeIfNeeded
           }
         }
